@@ -11,3 +11,7 @@ Private stream will let you
 - and more!
 
 Follow up for updates.
+
+[Architecture](/documentation/architecture.md)
+
+[Work hours & time management](/documentation/time.md)
