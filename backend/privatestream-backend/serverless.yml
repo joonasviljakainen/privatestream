@@ -19,22 +19,65 @@ service: privatestream-backend
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
 # frameworkVersion: "=X.X.X"
+package:
+  individually: true
 
 provider:
   name: aws
   runtime: nodejs12.x
+  stage: dev
+  region: eu-central-1
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:listBucket
+        - s3:putObjectObject
+        - s3:getObject
+        - s3:deleteObject
+        - s3:copyObject
+        - s3:getObjectTagging
+        - s3:putObjectTagging
+      Resource: "arn:aws:s3:::audio-storage"
+    - Effect: Allow
+      Action:
+        - logs:CreateLogGroup
+        - logs:CreateLogStream
+        - logs:PutLogEvents
+      Resource: "*"
+    - Effect: Allow
+      Action:
+        - dynamodb:deleteItem
+        - dynamodb:getItem
+        - dynamodb:putItem
+        - dynamodb:query
+        - dynamodb:scan
+        - dynamodb:updateItem
+
+      Resource: "arn:aws:dynamodb:::table/privatestream-test"
 
 plugins:
+  - serverless-plugin-typescript
+  - serverless-dynamodb-local
+  - serverless-s3-local
   - serverless-offline
 
 custom:
   serverless-offline:
     httpPort: 4000
     lambdaPort: 4001
+  # Uncomment only if you want to collaborate with serverless-plugin-additional-stacks
+  # additionalStacks:
+  #    permanent:
+  #      Resources:
+  #        S3BucketData:
+  #            Type: AWS::S3::Bucket
+  #            Properties:
+  #                BucketName: ${self:service}-data
+  s3:
+    port: 8000
+    directory: tmp # this directory must be already created.
 
 # you can overwrite defaults here
-#  stage: dev
-#  region: us-east-1
 
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
@@ -67,6 +110,7 @@ custom:
 
 functions:
   hello:
+    private: false
     handler: handler.hello
     events:
       - http:
@@ -112,6 +156,25 @@ functions:
 #    environment:
 #      variable2: value2
 
+#resources:
+#  Resources:
+#NewResource:
+#  Type: AWS::S3::Bucket
+#  Properties:
+#    BucketName: audio-storage
+#    testTable:
+#      Type: AWS::DynamoDB::Table
+#      Properties:
+#        TableName: privatestream-test
+#        AttributeDefinitions:
+#          - AttributeName: email
+#            AttributeType: S
+#       KeySchema:
+#          - AttributeName: email
+#            KeyType: HASH
+#        ProvisionedThroughput:
+#          ReadCapacityUnits: 1
+#          WriteCapacityUnits: 1
 # you can add CloudFormation resource templates here
 #resources:
 #  Resources:
