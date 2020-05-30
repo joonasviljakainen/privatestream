@@ -60,7 +60,6 @@ plugins:
   - serverless-dynamodb-local
   - serverless-s3-local
   - serverless-offline
-
 custom:
   serverless-offline:
     httpPort: 4000
@@ -74,8 +73,13 @@ custom:
   #            Properties:
   #                BucketName: ${self:service}-data
   s3:
-    port: 8000
+    host: localhost
+    port: 8001
     directory: tmp # this directory must be already created.
+  dynamodb:
+    stages:
+      - test
+      - dev
 
 # you can overwrite defaults here
 
