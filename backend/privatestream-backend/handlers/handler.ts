@@ -1,18 +1,7 @@
 "use strict";
-import { S3, AWSError, DynamoDB, Endpoint } from "aws-sdk";
-
-const dynamodb = new DynamoDB.DocumentClient();
-//console.log(process.env);
-console.log(process.env.NODE_ENV);
-const isDev = process?.env?.NODE_ENV === "DEV";
-const s3 = isDev
-  ? new S3({
-      s3ForcePathStyle: true,
-      accessKeyId: "S3RVER", // This specific key is required when working offline
-      secretAccessKey: "S3RVER",
-      endpoint: new Endpoint("http://localhost:8001"),
-    })
-  : new S3();
+import { AWSError, S3 } from "aws-sdk";
+import { s3 } from "../clientUtils/S3Client";
+import { ddb } from "../clientUtils/DynamoClient";
 
 //console.log(s3);
 module.exports.hello = async (event) => {
@@ -60,7 +49,7 @@ module.exports.hello = async (event) => {
     TableName: "privatestream-test",
   };
 
-  dynamodb
+  ddb
     .put(params)
     .promise()
     .then((data) => {

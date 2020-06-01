@@ -25,7 +25,7 @@ package:
 provider:
   name: aws
   runtime: nodejs12.x
-  stage: dev
+  stage: prod
   region: eu-central-1
   iamRoleStatements:
     - Effect: Allow
@@ -115,10 +115,17 @@ custom:
 functions:
   hello:
     private: false
-    handler: handler.hello
+    handler: handlers/handler.hello
     events:
       - http:
           path: hello
+          method: get
+  health:
+    private: false
+    handler: handlers/healthcheck.handler
+    events:
+      - http:
+          path: health
           method: get
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
