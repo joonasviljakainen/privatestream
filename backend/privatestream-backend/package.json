@@ -5,7 +5,8 @@
   "main": "handlers/handler.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cross-env NODE_ENV=DEV sls offline --noPrependStageInUrl "
+    "start": "cross-env NODE_ENV=DEV sls offline start --noPrependStageInUrl ",
+    "start:dev": "cross-env NODE_ENV=DEV sls offline start --noPrependStageInUrl "
   },
   "author": "",
   "license": "ISC",
