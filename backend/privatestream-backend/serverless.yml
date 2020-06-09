@@ -127,13 +127,12 @@ functions:
           path: login
           method: post
           cors: true
-
 resources:
   Resources:
-    audioStorage:
-      Type: AWS::S3::Bucket
-      Properties:
-        BucketName: audio-storage
+    #audioStorage:
+    #  Type: AWS::S3::Bucket
+    #  Properties:
+    #    BucketName: audio-storage
     userTable:
       Type: AWS::DynamoDB::Table
       Properties:
@@ -147,22 +146,3 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-# you can add CloudFormation resource templates here
-#resources:
-#  Resources:
-#    NewResource:
-#      Type: AWS::S3::Bucket
-#      Properties:
-#        BucketName: my-new-bucket
-#resources:
-#  Resources:
-#    NewResource:
-#      Type: AWS::DynamoDB::Table
-#    NewResource:
-#      Type: AWS::S3::Bucket
-#      Properties:
-#        BucketName: my-new-bucket
-#  Outputs:
-#     NewOutput:
-#       Description: "Description for the output"
-#       Value: "Some output value"

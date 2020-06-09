@@ -14,3 +14,10 @@
 | Date     | Work list                  | Time spent (h) |
 | -------- | -------------------------- | -------------- |
 | 1.6.2020 | Created react app template | 1h             |
+
+### Week 3
+
+| Date     | Work list           | Time spent (h) |
+| -------- | ------------------- | -------------- |
+| 8.6.2020 | CORS, DYnamoDB work | 2h             |
+| 9.6.2020 | DynamoDB pain       | 2zh            |

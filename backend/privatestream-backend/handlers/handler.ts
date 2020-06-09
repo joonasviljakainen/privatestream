@@ -3,11 +3,10 @@ import { AWSError, S3 } from "aws-sdk";
 import { s3 } from "../clientUtils/S3Client";
 import { ddb } from "../clientUtils/DynamoClient";
 
-//console.log(s3);
 module.exports.hello = async (event) => {
   console.log("MÖSSSSSSS");
 
-  s3.putObject(
+  await s3.putObject(
     {
       Bucket: "privatestream-test",
       Key: "halloe" + Date.now().toString(),
@@ -22,34 +21,20 @@ module.exports.hello = async (event) => {
     }
   );
 
-  s3.listBuckets((err, data) => {
+  await s3.listBuckets((err, data) => {
     if (err) console.log("BUCKET LISTING ERROR", err);
     if (data) console.log("BUCKETS", data);
   });
 
   const params = {
-    /*Item: {
-      id: {
-        S: "aaa" + Date.now().toString(),
-      },
-      timeRequestMade: {
-        S: Date.now().toString(),
-      },
-      message: {
-        S: "HELLO",
-      },
-    },*/
     Item: {
-      //id: { N: Date.now().toString() },
-      //id: { N: Date.now() },
       id: Date.now().toString(),
       message: "MÖES BOIS",
     },
-    //ReturnConsumedCapacity: "TOTAL",
     TableName: "privatestream-test",
   };
 
-  ddb
+  await ddb
     .put(params)
     .promise()
     .then((data) => {
@@ -59,18 +44,23 @@ module.exports.hello = async (event) => {
       console.error("DDB ERROR:, ", err);
     });
 
+  const params2 = {
+    TableName: "privatestream-users",
+    Item: {
+      username: "username",
+      password: "hash",
+    },
+  };
+
+  await ddb.put(params2).promise();
   return {
     statusCode: 200,
     body: JSON.stringify(
       {
         message: "MÖS! ",
-        //contento: error ? error : data,
       },
       null,
       2
     ),
   };
-
-  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
 };
