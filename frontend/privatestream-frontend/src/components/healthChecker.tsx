@@ -21,7 +21,7 @@ export const HealthChecker = () => {
           setLoading(false);
         });
     }
-  });
+  }, []);
   return (
     <div>
       <h2>Health check</h2>
