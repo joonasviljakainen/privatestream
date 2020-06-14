@@ -6,8 +6,9 @@ import * as jwt from "jsonwebtoken";
 import { createErrorMessage } from "../utils/ErrorHandling";
 import { validateCredentials } from "../utils/CredentialValidators";
 const SIGNING_KEY = "tosivaikeesalaisuus"; // TODO set in env
-const ONE_HOUR = 60 * 60 * 1000;
+const ONE_HOUR = 60 * 60 * 1000; // TODO set in constants
 
+// TODO put these in a separate file
 const DEFAULT_CORS_HEADERS = {
   "Access-Control-Allow-Headers": "Content-Type",
   "Access-Control-Allow-Origin": "*",
@@ -34,7 +35,7 @@ module.exports.handler = async (event: AWS.HttpRequest) => {
   try {
     const user = await ddb
       .get({
-        TableName: "privatestream-users",
+        TableName: "privatestream-users", // TODO set in env
         Key: { username },
       })
       .promise();
@@ -42,7 +43,6 @@ module.exports.handler = async (event: AWS.HttpRequest) => {
     if (user && user.Item && user.Item.username === username) {
       const matches = await bcrypt.compare(password, user.Item.password);
       if (matches) {
-        console.log("MATCHES!");
         const now = Math.floor(Date.now() / 1000);
         const tokenBody = {
           username: user.Item.username,
@@ -55,7 +55,7 @@ module.exports.handler = async (event: AWS.HttpRequest) => {
         return {
           statusCode: 200,
           headers: DEFAULT_CORS_HEADERS,
-          body: JSON.stringify({
+          body: JSON.stringify({        console.log("MATCHES!");
             message: "Signed in succesfully",
             data: { token },
           }),

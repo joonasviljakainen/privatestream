@@ -1,5 +1,5 @@
 "use strict";
-import AWS, { DocDB, DynamoDB } from "aws-sdk";
+import AWS from "aws-sdk";
 import { ddb } from "../clientUtils/DynamoClient";
 import * as bcrypt from "bcrypt";
 import { createErrorMessage } from "../utils/ErrorHandling";

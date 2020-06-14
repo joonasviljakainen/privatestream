@@ -17,7 +17,9 @@
 
 ### Week 3
 
-| Date     | Work list                                               | Time spent (h) |
-| -------- | ------------------------------------------------------- | -------------- |
-| 8.6.2020 | CORS, DYnamoDB work                                     | 2h             |
-| 9.6.2020 | DynamoDB pain, basic user database + login bearer token | 3h             |
+| Date      | Work list                                               | Time spent (h) |
+| --------- | ------------------------------------------------------- | -------------- |
+| 8.6.2020  | CORS, DYnamoDB work                                     | 2h             |
+| 9.6.2020  | DynamoDB pain, basic user database + login bearer token | 3h             |
+| 11.6.2020 | React-router, navbar for frontend                       | 1h             |
+| 14.6.2020 | Basic signup form + redirect to login                   | 1h             |

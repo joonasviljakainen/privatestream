@@ -4,6 +4,7 @@ import DefaultLayout from "../layouts/DefaultLayout";
 import { HealthChecker } from "../components/healthChecker";
 import logo from "../logo.svg";
 import { createBrowserHistory } from "history";
+import Signup from "../pages/Signup";
 
 const customHistory = createBrowserHistory();
 
@@ -14,7 +15,7 @@ const AppRouter = (props: any) => {
         <Switch>
           <Route path="/signup">
             <DefaultLayout showNavbar>
-              <div>SINGUP</div>
+              <Signup />
             </DefaultLayout>
           </Route>
           <Route path="/login">
